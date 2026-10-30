@@ -42,10 +42,12 @@ function drawStar(x,y,radius,color){
     
 }
 
+//increase speed on click
 canvas.addEventListener('click', function() {
     speed += 0.002;
 });
 
+//update the center of the animation based on mouse position
 canvas.addEventListener('mousemove', (event) => {
     const rect = canvas.getBoundingClientRect();
     centerX = (event.clientX - rect.left) * (canvas.width / rect.width);
@@ -56,6 +58,7 @@ canvas.addEventListener('mousemove', (event) => {
 
 function animate() {
 
+    //clear the canvas with a semi-transparent black rectangle for the trail effect
     context.fillStyle = "rgba(0, 0, 0, 0.1)";
     context.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -80,7 +83,9 @@ function animate() {
         context.restore();
     });
 
+    //request the next animation frame
     requestAnimationFrame(animate);
 }
 
+//start the animation
 animate();
