@@ -4,6 +4,10 @@ const canvas = document.getElementById('myCanvas');
 //get 2D context
 const context = canvas.getContext('2d');
 
+//animation speed and rotation
+let speed = 0.002;
+let rotation = 0;
+
 //stars for the canvas
 const stars = [
     {offset: 0,radius:40,color:'#00FFFF'},
@@ -13,8 +17,8 @@ const stars = [
 ]
 
 //center of the aniamtion
-const centerX = canvas.width / 2;
-const centerY = canvas.height / 2;
+let centerX = canvas.width / 2;
+let centerY = canvas.height / 2;
 const pathRadius = 200;
 
 //function to draw a star on the canvas
@@ -38,13 +42,26 @@ function drawStar(x,y,radius,color){
     
 }
 
+canvas.addEventListener('click', function() {
+    speed += 0.002;
+});
+
+canvas.addEventListener('mousemove', (event) => {
+    const rect = canvas.getBoundingClientRect();
+    centerX = (event.clientX - rect.left) * (canvas.width / rect.width);
+    centerY = (event.clientY - rect.top) * (canvas.height / rect.height);
+
+    
+});
+
 function animate() {
 
     context.fillStyle = "rgba(0, 0, 0, 0.1)";
     context.fillRect(0, 0, canvas.width, canvas.height);
 
     //controls the speed
-    const time = Date.now() * 0.002;
+    const time = rotation;
+    rotation += speed * 16;
 
     //go through each star
     stars.forEach((star) => {
